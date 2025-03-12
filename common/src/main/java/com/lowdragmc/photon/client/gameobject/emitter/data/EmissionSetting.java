@@ -48,14 +48,14 @@ public class EmissionSetting implements IConfigurable, ITagSerializable<Compound
         Random
     }
 
-    @Configurable(tips = "photon.emitter.config.emission.emissionRate")
+    @Configurable(name = "发射速率", tips = "photon.emitter.config.emission.emissionRate")
     @NumberFunctionConfig(types = {Constant.class, RandomConstant.class, Curve.class, RandomCurve.class}, min = 0, defaultValue = 0.5f, curveConfig = @CurveConfig(bound = {0, 5}, xAxis = "duration", yAxis = "emission rate"))
     protected NumberFunction emissionRate = NumberFunction.constant(0.5f);
 
-    @Configurable(tips = "photon.emitter.config.emission.emissionMode")
+    @Configurable(name = "发射模式", tips = "photon.emitter.config.emission.emissionMode")
     protected Mode emissionMode = Mode.Exacting;
 
-    @Configurable(tips = "photon.emitter.config.emission.bursts", persisted = false)
+    @Configurable(name = "触发", tips = "photon.emitter.config.emission.bursts", persisted = false)
     protected List<Burst> bursts = new ArrayList<>();
 
     @Override
@@ -142,21 +142,21 @@ public class EmissionSetting implements IConfigurable, ITagSerializable<Compound
     }
 
     public static class Burst {
-        @Configurable(tips = "photon.emitter.config.emission.bursts.time")
+        @Configurable(name = "时间", tips = "photon.emitter.config.emission.bursts.time")
         @NumberRange(range = {0, Integer.MAX_VALUE}, wheel = 1)
         public int time = 0;
         @Setter
         @Getter
-        @Configurable(tips = "photon.emitter.config.emission.bursts.count")
+        @Configurable(name = "单次发射数量", tips = "photon.emitter.config.emission.bursts.count")
         @NumberFunctionConfig(types = {Constant.class, RandomConstant.class, Curve.class, RandomCurve.class}, min = 0, defaultValue = 50, curveConfig = @CurveConfig(bound = {0, 50}, xAxis = "duration", yAxis = "emit count"))
         protected NumberFunction count = NumberFunction.constant(50);
-        @Configurable(tips = "photon.emitter.config.emission.bursts.cycles")
+        @Configurable(name = "循环次数", tips = "photon.emitter.config.emission.bursts.cycles")
         @NumberRange(range = {0, Integer.MAX_VALUE})
         public int cycles = 1;
-        @Configurable(tips = "photon.emitter.config.emission.bursts.interval")
+        @Configurable(name = "发射间隔", tips = "photon.emitter.config.emission.bursts.interval")
         @NumberRange(range = {1, Integer.MAX_VALUE}, wheel = 1)
         public int interval = 1;
-        @Configurable(tips = "photon.emitter.config.emission.bursts.probability")
+        @Configurable(name = "触发概率", tips = "photon.emitter.config.emission.bursts.probability")
         @NumberRange(range = {0, 1})
         public float probability = 1;
     }
