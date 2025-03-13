@@ -41,11 +41,33 @@ import java.util.function.Supplier;
 @Environment(EnvType.CLIENT)
 @Setter
 @Getter
-public class EmissionSetting implements IConfigurable, ITagSerializable<CompoundTag> {
+public class EmissionSetting implements IConfigurable, ITagSerializable<CompoundTag>
+{
 
-    public enum Mode {
+    public enum Mode
+    {
         Exacting,
-        Random
+        Random;
+
+        @Override
+        public String toString()
+        {
+            switch (this)
+            {
+                case Exacting ->
+                {
+                    return "精确值";
+                }
+                case Random ->
+                {
+                    return "随机值";
+                }
+                default ->
+                {
+                    return "";
+                }
+            }
+        }
     }
 
     @Configurable(name = "发射速率", tips = "photon.emitter.config.emission.emissionRate")
@@ -59,11 +81,13 @@ public class EmissionSetting implements IConfigurable, ITagSerializable<Compound
     protected List<Burst> bursts = new ArrayList<>();
 
     @Override
-    public CompoundTag serializeNBT() {
+    public CompoundTag serializeNBT()
+    {
         var tag = new CompoundTag();
         PersistedParser.serializeNBT(tag, getClass(), this);
         var list = new ListTag();
-        for (var burst : bursts) {
+        for (var burst : bursts)
+        {
             var element = new CompoundTag();
             PersistedParser.serializeNBT(element, Burst.class, burst);
             list.add(element);
@@ -73,12 +97,15 @@ public class EmissionSetting implements IConfigurable, ITagSerializable<Compound
     }
 
     @Override
-    public void deserializeNBT(CompoundTag tag) {
+    public void deserializeNBT(CompoundTag tag)
+    {
         PersistedParser.deserializeNBT(tag, new HashMap<>(), getClass(), this);
         bursts.clear();
         var list = tag.getList("bursts", Tag.TAG_COMPOUND);
-        for (var element : list) {
-            if (element instanceof CompoundTag nbt) {
+        for (var element : list)
+        {
+            if (element instanceof CompoundTag nbt)
+            {
                 var burst = new Burst();
                 PersistedParser.deserializeNBT(nbt, new HashMap<>(), Burst.class, burst);
                 bursts.add(burst);
@@ -86,30 +113,44 @@ public class EmissionSetting implements IConfigurable, ITagSerializable<Compound
         }
     }
 
-    public int getEmissionCount(int emitterAge, float t, RandomSource randomSource) {
+    public int getEmissionCount(int emitterAge, float t, RandomSource randomSource)
+    {
         var result = emissionRate.get(randomSource, t);
         var number = result.intValue();
         var decimals = result.floatValue() - result.intValue();
-        if (emissionMode == Mode.Exacting) {
-            if (decimals > 0 && emitterAge % ((int) (1 / decimals)) == 0) {
-                number += 1;
-            }
-        } else {
-            if (randomSource.nextFloat() < decimals) {
+        if (emissionMode == Mode.Exacting)
+        {
+            if (decimals > 0 && emitterAge % ((int) (1 / decimals)) == 0)
+            {
                 number += 1;
             }
         }
-        for (var bust : bursts) {
+        else
+        {
+            if (randomSource.nextFloat() < decimals)
+            {
+                number += 1;
+            }
+        }
+        for (var bust : bursts)
+        {
             var realAge = emitterAge - bust.time;
-            if (realAge >= 0) {
+            if (realAge >= 0)
+            {
                 var count = bust.count.get(randomSource, t).intValue();
-                if (realAge % bust.interval == 0) {
-                    if (bust.cycles == 0) {
-                        if (randomSource.nextFloat() < bust.probability) {
+                if (realAge % bust.interval == 0)
+                {
+                    if (bust.cycles == 0)
+                    {
+                        if (randomSource.nextFloat() < bust.probability)
+                        {
                             number += count;
                         }
-                    } else if (realAge / bust.interval < bust.cycles) {
-                        if (randomSource.nextFloat() < bust.probability) {
+                    }
+                    else if (realAge / bust.interval < bust.cycles)
+                    {
+                        if (randomSource.nextFloat() < bust.probability)
+                        {
                             number += count;
                         }
                     }
@@ -120,19 +161,23 @@ public class EmissionSetting implements IConfigurable, ITagSerializable<Compound
     }
 
     @ConfigAccessor
-    public static class BurstAccessor extends TypesAccessor<Burst> {
+    public static class BurstAccessor extends TypesAccessor<Burst>
+    {
 
-        public BurstAccessor() {
+        public BurstAccessor()
+        {
             super(Burst.class);
         }
 
         @Override
-        public Burst defaultValue(Field field, Class<?> type) {
+        public Burst defaultValue(Field field, Class<?> type)
+        {
             return new Burst();
         }
 
         @Override
-        public Configurator create(String name, Supplier<Burst> supplier, Consumer<Burst> consumer, boolean forceUpdate, Field field) {
+        public Configurator create(String name, Supplier<Burst> supplier, Consumer<Burst> consumer, boolean forceUpdate, Field field)
+        {
             var group = new ConfiguratorGroup("burst", true);
             var burst = supplier.get();
             burst = burst == null ? new Burst() : burst;
@@ -141,7 +186,8 @@ public class EmissionSetting implements IConfigurable, ITagSerializable<Compound
         }
     }
 
-    public static class Burst {
+    public static class Burst
+    {
         @Configurable(name = "时间", tips = "photon.emitter.config.emission.bursts.time")
         @NumberRange(range = {0, Integer.MAX_VALUE}, wheel = 1)
         public int time = 0;

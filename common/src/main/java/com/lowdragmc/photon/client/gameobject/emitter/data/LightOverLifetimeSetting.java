@@ -24,11 +24,11 @@ import net.fabricmc.api.Environment;
 @Getter
 public class LightOverLifetimeSetting extends ToggleGroup {
 
-    @Configurable(tips = "photon.emitter.config.lights.skyLight")
+    @Configurable(name = "天空光照", tips = "photon.emitter.config.lights.skyLight")
     @NumberFunctionConfig(types = {Constant.class, RandomConstant.class, Curve.class, RandomCurve.class}, isDecimals = false, defaultValue = 15, min = 0, max = 15, wheelDur = 1, curveConfig = @CurveConfig(xAxis = "lifetime", yAxis = "speed modifier"))
     protected NumberFunction skyLight = NumberFunction.constant(15);
 
-    @Configurable(tips = "photon.emitter.config.lights.blockLight")
+    @Configurable(name = "方块光照", tips = "photon.emitter.config.lights.blockLight")
     @NumberFunctionConfig(types = {Constant.class, RandomConstant.class, Curve.class, RandomCurve.class}, isDecimals = false, defaultValue = 15, min = 0, max = 15, wheelDur = 1, curveConfig = @CurveConfig(xAxis = "lifetime", yAxis = "speed modifier"))
     protected NumberFunction blockLight = NumberFunction.constant(15);
 

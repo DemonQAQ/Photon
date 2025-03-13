@@ -53,7 +53,7 @@ public class NumberFunction3Accessor extends TypesAccessor<NumberFunction3> {
                 isSeperated.set(true);
             }
             return new ConfiguratorSelectorConfigurator<>(name, false, isSeperated::get, isSeperated::set, isSeperated.get(), true,
-                    List.of(true, false), v -> v ? "Separate Axes" : "All in one", (v, father) -> {
+                    List.of(true, false), v -> v ? "各轴独立速度" : "所有轴相同速度", (v, father) -> {
                 if (v) {
                     father.addConfigurators(new NumberFunction3Configurator("", supplier, consumer, forceUpdate, config));
                 } else {

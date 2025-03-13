@@ -34,36 +34,60 @@ import java.util.Arrays;
 @Environment(EnvType.CLIENT)
 @Getter
 @Setter
-public class RendererSetting {
+public class RendererSetting
+{
 
-    public enum Layer {
+    public enum Layer
+    {
         Opaque,
-        Translucent
+        Translucent;
+
+        @Override
+        public String toString()
+        {
+            switch (this)
+            {
+                case Opaque ->
+                {
+                    return "不透明";
+                }
+                case Translucent ->
+                {
+                    return "透明";
+                }
+                default ->
+                {
+                    return "";
+                }
+            }
+        }
     }
 
-    @Configurable(tips = "photon.emitter.config.renderer.layer")
+    @Configurable(name = "渲染层", tips = "photon.emitter.config.renderer.layer")
     protected Layer layer = Layer.Translucent;
 
-    @Configurable(tips = "photon.emitter.config.renderer.bloomEffect")
+    @Configurable(name = "泛光", tips = "photon.emitter.config.renderer.bloomEffect")
     protected boolean bloomEffect = false;
 
-    @Configurable(name = "cull", subConfigurable = true, tips = "photon.emitter.config.renderer.cull")
+    @Configurable(name = "粒子可视范围", subConfigurable = true, tips = "photon.emitter.config.renderer.cull")
     protected final Cull cull = new Cull();
 
-    public static class Cull extends ToggleGroup {
+    public static class Cull extends ToggleGroup
+    {
         @Setter
         @Getter
-        @Configurable
+        @Configurable(name = "起点", tips = "photon.emitter.config.renderer.from")
         @NumberRange(range = {-10000, 10000})
         protected Vector3f from = new Vector3f(-0.5f, -0.5f, -0.5f);
 
         @Setter
         @Getter
-        @Configurable
+        @Configurable(name = "终点")
         @NumberRange(range = {-10000, 10000})
         protected Vector3f to = new Vector3f(0.5f, 0.5f, 0.5f);
 
-        public AABB getCullAABB(Emitter particle, float partialTicks) {
+        public AABB getCullAABB(Emitter particle, float partialTicks)
+        {
             var pos = particle.transform().position();
             return new AABB(from.x, from.y, from.z, to.x, to.y, to.z).move(pos.x, pos.y, pos.z);
         }
@@ -71,13 +95,16 @@ public class RendererSetting {
 
     @Getter
     @Setter
-    public static class Particle extends RendererSetting implements IConfigurable, IPersistedSerializable {
+    public static class Particle extends RendererSetting implements IConfigurable, IPersistedSerializable
+    {
 
-        public enum Mode {
+        public enum Mode
+        {
             Billboard((p, c, t) -> c.rotation()),
             Horizontal(0, 90),
             Vertical(0, 0),
-            VerticalBillboard((p, c, t) -> {
+            VerticalBillboard((p, c, t) ->
+            {
                 var quaternion = new Quaternionf();
                 quaternion.rotateY((float) Math.toRadians(-c.getYRot()));
                 return quaternion;
@@ -86,19 +113,54 @@ public class RendererSetting {
 
             public final TriFunction<TileParticle, Camera, Float, Quaternionf> quaternion;
 
-            Mode(TriFunction<TileParticle, Camera, Float, Quaternionf> quaternion) {
+            Mode(TriFunction<TileParticle, Camera, Float, Quaternionf> quaternion)
+            {
                 this.quaternion = quaternion;
             }
 
-            Mode(Quaternionf quaternion) {
+            Mode(Quaternionf quaternion)
+            {
                 this.quaternion = (p, c, t) -> quaternion;
             }
 
-            Mode(float yRot, float xRot) {
+            Mode(float yRot, float xRot)
+            {
                 var quaternion = new Quaternionf();
                 quaternion.rotateY((float) Math.toRadians(-yRot));
                 quaternion.rotateX((float) Math.toRadians(xRot));
                 this.quaternion = (p, c, t) -> quaternion;
+            }
+
+            @Override
+            public String toString()
+            {
+                switch (this)
+                {
+                    case Model ->
+                    {
+                        return "模型";
+                    }
+                    case Billboard ->
+                    {
+                        return "广告牌";
+                    }
+                    case Vertical ->
+                    {
+                        return "垂直";
+                    }
+                    case Horizontal ->
+                    {
+                        return "水平";
+                    }
+                    case VerticalBillboard ->
+                    {
+                        return "垂直广告牌";
+                    }
+                    default ->
+                    {
+                        return "";
+                    }
+                }
             }
         }
 
@@ -112,11 +174,14 @@ public class RendererSetting {
         protected boolean useBlockUV = true;
 
         @Override
-        public void buildConfigurator(ConfiguratorGroup father) {
-            var configurator = new ConfiguratorSelectorConfigurator<>("renderMode",
+        public void buildConfigurator(ConfiguratorGroup father)
+        {
+            var configurator = new ConfiguratorSelectorConfigurator<>("渲染模式",
                     false, this::getRenderMode, this::setRenderMode, Mode.Billboard, true,
-                    Arrays.stream(Mode.values()).toList(), Mode::name, (mode, container) -> {
-                if (mode == Mode.Model) {
+                    Arrays.stream(Mode.values()).toList(), Mode::toString, (mode, container) ->
+            {
+                if (mode == Mode.Model)
+                {
                     model.buildConfigurator(container);
                     var shadeConfigurator = new BooleanConfigurator("shade", this::isShade, this::setShade, true, true);
                     shadeConfigurator.setTips("photon.emitter.config.renderer.renderMode.model.shade");
@@ -132,25 +197,31 @@ public class RendererSetting {
             IConfigurable.super.buildConfigurator(father);
         }
 
-        public IModelRenderer getModel() {
-            if (model == null) {
+        public IModelRenderer getModel()
+        {
+            if (model == null)
+            {
                 model = new IModelRenderer(new ResourceLocation("block/dirt"));
             }
             return model;
         }
 
         @Override
-        public void deserializeNBT(CompoundTag tag) {
+        public void deserializeNBT(CompoundTag tag)
+        {
             IPersistedSerializable.super.deserializeNBT(tag);
-            if (renderMode == Mode.Model && model != null) {
+            if (renderMode == Mode.Model && model != null)
+            {
                 model.deserializeNBT(tag.getCompound("model"));
             }
         }
 
         @Override
-        public CompoundTag serializeNBT() {
+        public CompoundTag serializeNBT()
+        {
             var tag = IPersistedSerializable.super.serializeNBT();
-            if (renderMode == Mode.Model) {
+            if (renderMode == Mode.Model)
+            {
                 tag.put("model", getModel().serializeNBT());
             }
             return tag;

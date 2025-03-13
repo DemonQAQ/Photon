@@ -21,6 +21,7 @@
     "photon.emitter.config.shape": "控制粒子的发射体积的形状，发射位置和初始方向。",
     "photon.emitter.config.material": "若在拖尾模块（Trails）中则作为拖尾材质使用。",
     "photon.emitter.config.renderer": "控制粒子的渲染。",
+    "photon.emitter.config.renderer.from": "包围盒的起点",
     "photon.emitter.config.physics": "控制粒子的物理。",
     "photon.emitter.config.lights": "控制每个粒子在其生命周期内的光照贴图。",
     "photon.emitter.config.velocityOverLifetime": "控制每个粒子在其生命周期内的速度。",
@@ -65,7 +66,7 @@
     "photon.emitter.config.physics.gravity": "粒子在其生命周期内的重力。",
     "photon.emitter.config.physics.bounceChance": "碰撞时发生反弹的可能性。",
     "photon.emitter.config.physics.bounceRate": "碰撞发生时的反弹速率。",
-    "photon.emitter.config.physics.bounceSpreadRate": "碰撞发生时，对其他两个轴的高斯噪声添加的额外速度。",
+    "photon.emitter.config.physics.bounceSpreadRate": "碰撞发生时，对其他两个轴添加的额外速度（基于高斯噪声）。",
   
     "photon.emitter.config.lights.skyLight": "光照贴图的天空光照等级。（0-15）",
     "photon.emitter.config.lights.blockLight": "光照贴图的方块光照等级。（0-15）",
@@ -83,7 +84,8 @@
     "photon.emitter.config.lifetimeByEmitterSpeed.speedRange": "当multiplier使用曲线模式之一时，将速度映射到曲线上的一个值。",
   
     "photon.emitter.config.forceOverLifetime.force": "施加力。（例如：重力）",
-  
+    "photon.emitter.config.simulationSpace": "控制粒子动画是否使用基于父对象的相对坐标系进行处理，使用相对坐标系时会跟随父对象一起移动。",
+
     "photon.emitter.config.colorOverLifetime.color": "控制粒子在生命周期内的颜色。",
   
     "photon.emitter.config.colorBySpeed.color": "根据粒子速度控制颜色。",

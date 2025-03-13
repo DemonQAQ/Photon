@@ -31,30 +31,30 @@ public class UVAnimationSetting extends ToggleGroup {
 
     @Setter
     @Getter
-    @Configurable(tips = "photon.emitter.config.uvAnimation.tiles")
+    @Configurable(name = "分块数量", tips = "photon.emitter.config.uvAnimation.tiles")
     @NumberRange(range = {1, Integer.MAX_VALUE})
     protected Range tiles = new Range(1, 1);
 
     @Setter
     @Getter
-    @Configurable(tips = "photon.emitter.config.uvAnimation.animation")
+    @Configurable(name = "播放模式", tips = "photon.emitter.config.uvAnimation.animation")
     protected Animation animation = Animation.WholeSheet;
 
     @Setter
     @Getter
-    @Configurable(tips = "photon.emitter.config.uvAnimation.frameOverTime")
+    @Configurable(name = "帧数", tips = "photon.emitter.config.uvAnimation.frameOverTime")
     @NumberFunctionConfig(types = {Constant.class, RandomConstant.class, Curve.class, RandomCurve.class}, min = 0, curveConfig = @CurveConfig(bound = {0, 4}, xAxis = "lifetime", yAxis = "frame over time"))
     protected NumberFunction frameOverTime = NumberFunction.constant(0);
 
     @Setter
     @Getter
-    @Configurable(tips = "photon.emitter.config.uvAnimation.startFrame")
+    @Configurable(name = "起始帧数", tips = "photon.emitter.config.uvAnimation.startFrame")
     @NumberFunctionConfig(types = {Constant.class, RandomConstant.class}, min = 0)
     protected NumberFunction startFrame = NumberFunction.constant(0);
 
     @Setter
     @Getter
-    @Configurable(tips = "photon.emitter.config.uvAnimation.cycle")
+    @Configurable(name = "循环次数", tips = "photon.emitter.config.uvAnimation.cycle")
     @NumberRange(range = {0, Integer.MAX_VALUE}, wheel = 1)
     protected float cycle = 1;
 

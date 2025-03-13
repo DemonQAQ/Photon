@@ -27,11 +27,11 @@ import net.fabricmc.api.Environment;
 @Getter
 public class LifetimeByEmitterSpeedSetting extends ToggleGroup {
 
-    @Configurable(tips = "photon.emitter.config.lifetimeByEmitterSpeed.multiplier")
+    @Configurable(name = "模式", tips = "photon.emitter.config.lifetimeByEmitterSpeed.multiplier")
     @NumberFunctionConfig(types = {Constant.class, RandomConstant.class, Curve.class, RandomCurve.class}, min = 0, defaultValue = 1f, curveConfig = @CurveConfig(bound = {0, 1}, xAxis = "multiplier", yAxis = "emitter velocity"))
     protected NumberFunction multiplier = NumberFunction.constant(1);
 
-    @Configurable(tips = "photon.emitter.config.lifetimeByEmitterSpeed.speedRange")
+    @Configurable(name = "速度范围", tips = "photon.emitter.config.lifetimeByEmitterSpeed.speedRange")
     @NumberRange(range = {0, 1000})
     protected Range speedRange = new Range(0f, 1f);
 

@@ -37,15 +37,15 @@ public class ShapeSetting implements IConfigurable, IPersistedSerializable {
     @Persisted
     private IShape shape = new Cone();
 
-    @Configurable(tips = "photon.emitter.config.shape.position")
+    @Configurable(name = "位置", tips = "photon.emitter.config.shape.position")
     @NumberFunction3Config(allowSeperated = false, isSeperatedDefault = true, common = @NumberFunctionConfig(types = {Constant.class, RandomConstant.class, Curve.class, RandomCurve.class}, min = -1000, max = 1000, curveConfig = @CurveConfig(bound = {-3, 3}, xAxis = "duration", yAxis = "position")))
     private NumberFunction3 position = new NumberFunction3(0 ,0, 0);
 
-    @Configurable(tips = "photon.emitter.config.shape.rotation")
+    @Configurable(name = "旋转", tips = "photon.emitter.config.shape.rotation")
     @NumberFunction3Config(allowSeperated = false, isSeperatedDefault = true, common = @NumberFunctionConfig(types = {Constant.class, RandomConstant.class, Curve.class, RandomCurve.class}, wheelDur = 10, min = -Float.MAX_VALUE, max = Float.MAX_VALUE, curveConfig = @CurveConfig(bound = {-180, 180}, xAxis = "duration", yAxis = "rotation")))
     private NumberFunction3 rotation = new NumberFunction3(0 ,0, 0);
 
-    @Configurable(tips = "photon.emitter.config.shape.scale")
+    @Configurable(name = "缩放", tips = "photon.emitter.config.shape.scale")
     @NumberFunction3Config(allowSeperated = false, isSeperatedDefault = true, common = @NumberFunctionConfig(types = {Constant.class, RandomConstant.class, Curve.class, RandomCurve.class}, min = 0, max = 1000, curveConfig = @CurveConfig(bound = {0, 3}, xAxis = "duration", yAxis = "scale")))
     private NumberFunction3 scale = new NumberFunction3(1, 1, 1);
 
@@ -75,7 +75,7 @@ public class ShapeSetting implements IConfigurable, IPersistedSerializable {
     public void buildConfigurator(ConfiguratorGroup father) {
         IConfigurable.super.buildConfigurator(father);
         var group = new ConfiguratorGroup("", false);
-        var selector = new SelectorConfigurator<>("Shape", () -> shape.name(), name -> {
+        var selector = new SelectorConfigurator<>("形状", () -> shape.name(), name -> {
             var wrapper = PhotonLDLibPlugin.REGISTER_SHAPES.get(name);
             if (wrapper != null) {
                 shape = wrapper.creator().get();

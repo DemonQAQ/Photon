@@ -74,6 +74,7 @@
   "photon.emitter.config.renderer.layer": "Defines the render layer of the particle renderer.",
   "photon.emitter.config.renderer.bloomEffect": "Render particles with the bloom effect.",
   "photon.emitter.config.renderer.cull": "Cull particles that are out of view.",
+  "photon.emitter.config.renderer.from": "AABB cull start point",
   "photon.emitter.config.rotation.roll": "The roll of particles. (degree)",
   "photon.emitter.config.rotation.pitch": "The pitch of particles. (degree)",
   "photon.emitter.config.rotation.yaw": "The yaw of particles. (degree)",

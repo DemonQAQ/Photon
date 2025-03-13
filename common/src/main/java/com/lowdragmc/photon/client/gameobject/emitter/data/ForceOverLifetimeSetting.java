@@ -23,13 +23,13 @@ import net.fabricmc.api.Environment;
 @Getter
 public class ForceOverLifetimeSetting extends ToggleGroup {
 
-    @Configurable(tips = "photon.emitter.config.forceOverLifetime.force")
+    @Configurable(name = "力方向", tips = "photon.emitter.config.forceOverLifetime.force")
     @NumberFunction3Config(common = @NumberFunctionConfig(types = {Constant.class, RandomConstant.class, Curve.class, RandomCurve.class}, curveConfig = @CurveConfig(bound = {-1, 1}, xAxis = "lifetime", yAxis = "force")))
     protected NumberFunction3 force = new NumberFunction3(0, 0, 0);
 
     @Setter
     @Getter
-    @Configurable(tips = "photon.emitter.config.simulationSpace")
+    @Configurable(name = "坐标系", tips = "photon.emitter.config.simulationSpace")
     protected ParticleConfig.Space simulationSpace = ParticleConfig.Space.Local;
 
     public Vector3f getForce(IParticle particle) {

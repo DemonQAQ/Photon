@@ -24,11 +24,11 @@ import net.fabricmc.api.Environment;
 @Getter
 public class SizeBySpeedSetting extends ToggleGroup {
 
-    @Configurable(tips = "photon.emitter.config.sizeBySpeed.size")
+    @Configurable(name = "尺寸", tips = "photon.emitter.config.sizeBySpeed.size")
     @NumberFunction3Config(common = @NumberFunctionConfig(types = {Constant.class, RandomConstant.class, Curve.class, RandomCurve.class}, curveConfig = @CurveConfig(bound = {-1, 1}, xAxis = "speed", yAxis = "size")))
     protected NumberFunction3 size = new NumberFunction3(1, 1, 1);
 
-    @Configurable(tips = "photon.emitter.config.sizeBySpeed.speedRange")
+    @Configurable(name = "速度范围", tips = "photon.emitter.config.sizeBySpeed.speedRange")
     @NumberRange(range = {0, 1000})
     protected Range speedRange = new Range(0f, 1f);
     

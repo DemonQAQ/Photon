@@ -31,7 +31,7 @@ import java.util.HashMap;
 @Setter
 public class MaterialSetting implements IConfigurable, ITagSerializable<CompoundTag> {
 
-    @Configurable(name = "Blend Mode", subConfigurable = true)
+    @Configurable(name = "混合模式", subConfigurable = true)
     protected final BlendMode blendMode = new BlendMode();
     @Configurable
     protected boolean cull = true;

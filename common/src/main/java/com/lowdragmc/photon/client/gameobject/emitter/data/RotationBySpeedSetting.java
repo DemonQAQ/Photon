@@ -40,7 +40,7 @@ public class RotationBySpeedSetting extends ToggleGroup {
     @NumberFunctionConfig(types = {Constant.class, RandomConstant.class, Curve.class, RandomCurve.class}, wheelDur = 10, curveConfig = @CurveConfig(bound = {0, 360}, xAxis = "speed", yAxis = "yaw"))
     protected NumberFunction yaw = NumberFunction.constant(0);
 
-    @Configurable(tips = "photon.emitter.config.rotationBySpeed.speedRange")
+    @Configurable(name = "速度范围", tips = "photon.emitter.config.rotationBySpeed.speedRange")
     @NumberRange(range = {0, 1000})
     protected Range speedRange = new Range(0f, 1f);
 

@@ -33,10 +33,10 @@ import java.io.File;
 @ParametersAreNonnullByDefault
 public class TextureMaterial extends ShaderInstanceMaterial {
 
-    @Configurable
+    @Configurable(name = "贴图")
     public ResourceLocation texture = new ResourceLocation("textures/particle/glow.png");
 
-    @Configurable
+    @Configurable(name = "丢弃阈值")
     @NumberRange(range = {0, 1})
     public float discardThreshold = 0.01f;
 

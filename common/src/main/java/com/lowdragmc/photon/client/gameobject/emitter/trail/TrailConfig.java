@@ -41,43 +41,40 @@ import javax.annotation.Nonnull;
 public class TrailConfig implements IPersistedSerializable {
     @Setter
     @Getter
-    @Configurable(tips = "photon.emitter.trail.config.time")
+    @Configurable(name = "时间", tips = "photon.emitter.trail.config.time")
     @NumberRange(range = {0f, Integer.MAX_VALUE})
     protected int time = 20;
     @Setter
     @Getter
-    @Configurable(tips = "photon.emitter.trail.config.minVertexDistance")
+    @Configurable(name = "最小距离", tips = "photon.emitter.trail.config.minVertexDistance")
     @NumberRange(range = {0f, Float.MAX_VALUE})
     protected float minVertexDistance = 0.05f;
     @Getter
-    @Configurable(tips = {
+    @Configurable(name = "平滑插值", tips = {
             "photon.emitter.trail.config.smoothInterpolation.0",
             "photon.emitter.trail.config.smoothInterpolation.1",
     })
     protected boolean smoothInterpolation = false;
     @Getter
-//    @Configurable(tips = {
-//            "photon.emitter.trail.config.calculateSmoothByShader.0",
-//            "photon.emitter.trail.config.calculateSmoothByShader.1",
-//    })
+    @Configurable(name = "使用着色器计算平滑")
     protected boolean calculateSmoothByShader = false;
     @Setter
     @Getter
-    @Configurable(tips = {"photon.emitter.config.parallelRendering.0",
+    @Configurable(name = "并行渲染", tips = {"photon.emitter.config.parallelRendering.0",
             "photon.emitter.config.parallelRendering.1"})
     protected boolean parallelRendering = false;
     @Setter
     @Getter
-    @Configurable(tips = "photon.emitter.trail.config.uvMode")
+    @Configurable(name = "uv模式", tips = "photon.emitter.trail.config.uvMode")
     protected TrailParticle.UVMode uvMode = TrailParticle.UVMode.Stretch;
     @Setter
     @Getter
-    @Configurable(tips = "photon.emitter.trail.config.widthOverTrail")
+    @Configurable(name = "拖尾宽度", tips = "photon.emitter.trail.config.widthOverTrail")
     @NumberFunctionConfig(types = {Constant.class, Curve.class}, min = 0, defaultValue = 0.1f, curveConfig = @CurveConfig(bound = {0, 0.1f}, xAxis = "trail position", yAxis = "width"))
     protected NumberFunction widthOverTrail = NumberFunction.constant(0.2f);
     @Setter
     @Getter
-    @Configurable(tips = "photon.emitter.trail.config.colorOverTrail")
+    @Configurable(name = "拖尾颜色", tips = "photon.emitter.trail.config.colorOverTrail")
     @NumberFunctionConfig(types = {Color.class, RandomColor.class, Gradient.class, RandomGradient.class}, defaultValue = -1)
     protected NumberFunction colorOverTrail = new Gradient();
     @Getter

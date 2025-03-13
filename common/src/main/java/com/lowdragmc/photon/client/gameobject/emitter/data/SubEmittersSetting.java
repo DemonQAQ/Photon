@@ -49,7 +49,7 @@ import java.util.function.Supplier;
 @Getter
 public class SubEmittersSetting extends ToggleGroup implements IConfigurable, ITagSerializable<CompoundTag> {
 
-    @Configurable(persisted = false)
+    @Configurable(name = "发射器", persisted = false)
     protected List<Emitter> emitters = new ArrayList<>();
 
     @Override

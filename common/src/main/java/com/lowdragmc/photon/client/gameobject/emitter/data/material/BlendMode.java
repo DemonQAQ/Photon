@@ -26,22 +26,22 @@ public class BlendMode {
     }
 
     @Getter @Setter
-    @Configurable
+    @Configurable(name = "开启混合")
     private boolean enableBlend;
     @Getter @Setter
-    @Configurable
+    @Configurable(name = "源颜色")
     private SourceFactor srcColorFactor;
     @Getter @Setter
-    @Configurable
+    @Configurable(name = "目标颜色")
     private DestFactor dstColorFactor;
     @Getter @Setter
-    @Configurable
+    @Configurable(name = "源透明度")
     private SourceFactor srcAlphaFactor;
     @Getter @Setter
-    @Configurable
+    @Configurable(name = "目标透明度")
     private DestFactor dstAlphaFactor;
     @Getter @Setter
-    @Configurable
+    @Configurable(name = "混合函数")
     private BlendFuc blendFunc;
 
     private BlendMode(boolean enableBlend, SourceFactor srcColorFactor, DestFactor dstColorFactor, SourceFactor srcAlphaFactor, DestFactor dstAlphaFactor, BlendFuc blendFunc) {

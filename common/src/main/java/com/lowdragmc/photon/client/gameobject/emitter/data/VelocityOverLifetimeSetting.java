@@ -30,22 +30,22 @@ public class VelocityOverLifetimeSetting extends ToggleGroup {
         FixedVelocity
     }
 
-    @Configurable(tips = "photon.emitter.config.velocityOverLifetime.linear")
+    @Configurable(name = "线性速度", tips = "photon.emitter.config.velocityOverLifetime.linear")
     @NumberFunction3Config(common = @NumberFunctionConfig(types = {Constant.class, RandomConstant.class, Curve.class, RandomCurve.class}, wheelDur = 1, curveConfig = @CurveConfig(bound = {-2, 2}, xAxis = "lifetime", yAxis = "additional velocity")))
     protected NumberFunction3 linear = new NumberFunction3(0, 0, 0);
 
-    @Configurable(tips = "photon.emitter.config.velocityOverLifetime.orbitalMode")
+    @Configurable(name = "轨道旋转模式", tips = "photon.emitter.config.velocityOverLifetime.orbitalMode")
     protected OrbitalMode orbitalMode = OrbitalMode.AngularVelocity;
 
-    @Configurable(tips = "photon.emitter.config.velocityOverLifetime.orbital")
+    @Configurable(name = "粒子轨道", tips = "photon.emitter.config.velocityOverLifetime.orbital")
     @NumberFunction3Config(common = @NumberFunctionConfig(types = {Constant.class, RandomConstant.class, Curve.class, RandomCurve.class}, wheelDur = 1, curveConfig = @CurveConfig(bound = {-2, 2}, xAxis = "lifetime", yAxis = "orbital velocity")))
     protected NumberFunction3 orbital = new NumberFunction3(0, 0, 0);
 
-    @Configurable(tips = "photon.emitter.config.velocityOverLifetime.offset")
+    @Configurable(name = "偏移", tips = "photon.emitter.config.velocityOverLifetime.offset")
     @NumberFunction3Config(common = @NumberFunctionConfig(types = {Constant.class, RandomConstant.class, Curve.class, RandomCurve.class}, wheelDur = 1, curveConfig = @CurveConfig(bound = {-3, 3}, xAxis = "lifetime", yAxis = "orbital offset")))
     protected NumberFunction3 offset = new NumberFunction3(0, 0, 0);
 
-    @Configurable(tips = "photon.emitter.config.velocityOverLifetime.speedModifier")
+    @Configurable(name = "速度控制", tips = "photon.emitter.config.velocityOverLifetime.speedModifier")
     @NumberFunctionConfig(types = {Constant.class, RandomConstant.class, Curve.class, RandomCurve.class}, defaultValue = 1f, curveConfig = @CurveConfig(bound = {-1, 1}, xAxis = "lifetime", yAxis = "speed modifier"))
     protected NumberFunction speedModifier = NumberFunction.constant(1);
 
